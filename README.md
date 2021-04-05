@@ -15,7 +15,7 @@ Each cell's neighborhood is the 8 cells immediately around it (i.e. [Moore Neigh
 
 For illustration purposes, 0 and 1 will be represented as ```░░``` and ```▓▓``` blocks respectively (PHP, C: plain black and white squares). You can take advantage of the htmlize function to get a text representation of the universe, e.g.:
 
-```python 
+```
 print(htmlize(cells))
 ```
 
@@ -93,7 +93,7 @@ You probably know the "like" system from Facebook and other pages. People can "l
 
 Implement a function ```likes :: [String] -> String```, which must take in input array, containing the names of people who like an item. It must return the display text as shown in the examples:
 
-```python
+```
 likes([]) # must be "no one likes this"
 likes(["Peter"]) # must be "Peter likes this"
 likes(["Jacob", "Alex"]) # must be "Jacob and Alex like this"
@@ -228,4 +228,126 @@ productFib(800) # should return {34, 55, false},
 
 **Note**:
 >You can see examples for your language in "Sample Tests".
+
+# Battle ships: Sunk damaged or not touched?
+
+## Task
+Your task in the kata is to determine how many boats are sunk damaged and untouched from a set amount of attacks. You will need to create a function that takes two arguments, the playing board and the attacks.
+
+## Example Game
+**The board**
+
+Boats are placed either horizontally, vertically or diagonally on the board. ```0``` represents a space not occupied by a boat. Digits ```1-3``` represent boats which vary in length 1-4 spaces long. There will always be at least 1 boat up to a maximum of 3 in any one game. Boat sizes and board dimentions will vary from game to game.
+
+**Attacks**
+Attacks are calculated from the bottom left, first the X coordinate then the Y. There will be at least one attack per game, and the array will not contain duplicates.
+```
+[[2, 1], [1, 3], [4, 2]]
+```
+
+First attack      `[2, 1]` = `3`
+Second attack `[1, 3]` = `0`
+Third attack     `[4, 2]` = `1`
+
+**Function Initialization**
+
+```
+board = [[0,0,0,2,2,0],
+         [0,3,0,0,0,0],
+         [0,3,0,1,0,0],
+         [0,3,0,1,0,0]]
+attacks = [[2, 1], [1, 3], [4, 2]]
+damaged_or_sunk(board, attacks)
+```
+
+**Scoring**
+1 point for every whole boat sank.
+0.5 points for each boat hit at least once (**not** including boats that are sunk).
+-1 point for each whole boat that was not hit at least once.
+
+**Sunk or Damaged**
+`sunk` = all boats that are sunk
+`damaged` = all boats that have been hit at least once but not sunk
+`notTouched/not_touched` = all boats that have not been hit at least once
+
+**Output**
+You should return a hash with the following data
+
+```
+'sunk', 'damaged', 'not_touched', 'points'
+```
+
+## Example Game Output
+In our above example..
+
+First attack: `boat 3` was damaged, which increases the `points` by `0.5`
+Second attack: miss nothing happens
+Third attack: `boat 1` was damaged, which increases the `points` by `0.5`
+`boat 2` was untouched so `points -1` and `notTouched +1` in Javascript/Java/C# and `not_touched +1` in Python/Ruby.
+No whole boats sank
+
+**Return Hash**
+```
+{ 'sunk': 0, 'damaged': 2 , 'not_touched': 1, 'points': 0 }
+```
+
+# Your order, please
+
+Your task is to sort a given string. Each word in the string will contain a single number. This number is the position the word should have in the result.
+
+Note: Numbers can be from 1 to 9. So 1 will be the first word (not 0).
+
+If the input string is empty, return an empty string. The words in the input String will only contain valid consecutive numbers.
+
+## Examples
+```
+"is2 Thi1s T4est 3a"  -->  "Thi1s is2 3a T4est"
+"4of Fo1r pe6ople g3ood th5e the2"  -->  "Fo1r the2 g3ood 4of th5e pe6ople"
+""  -->  ""
+```
+
+# Regex Password Validation
+
+You need to write regex that will validate a password to make sure it meets the following criteria:
+
+- At least six characters long 
+- contains a lowercase letter
+- contains an uppercase letter
+- contains a number
+
+Valid passwords will only be alphanumeric characters.
+
+# Moving Zeros To The End
+
+Write an algorithm that takes an array and moves all of the zeros to the end, preserving the order of the other elements.
+
+```
+move_zeros([1, 0, 1, 2, 0, 1, 3]) # returns [1, 1, 2, 1, 3, 0, 0]
+```
+
+# Pyramid Slide Down
+
+## Lyrics...
+Pyramids are amazing! Both in architectural and mathematical sense. If you have a computer, you can mess with pyramids even if you are not in Egypt at the time. For example, let's consider the following problem. Imagine that you have a pyramid built of numbers, like this one here:
+
+```
+   /3/
+  \7\ 4 
+ 2 \4\ 6 
+8 5 \9\ 3
+```
+
+## Here comes the task...
+Let's say that the *'slide down'* is the maximum sum of consecutive numbers from the top to the bottom of the pyramid. As you can see, the longest *'slide down'* is ```3 + 7 + 4 + 9 = 23```
+
+Your task is to write a function ```longestSlideDown``` (in ruby/crystal/julia: ```longest_slide_down```) that takes a pyramid representation as argument and returns its' **largest** *'slide down'*. For example,
+
+```
+longestSlideDown([[3], [7, 4], [2, 4, 6], [8, 5, 9, 3]]) => 23
+```
+
+## By the way...
+My tests include some extraordinarily high pyramids so as you can guess, brute-force method is a bad idea unless you have a few centuries to waste. You must come up with something more clever than that.
+
+(c) This task is a lyrical version of the **Problem 18** and/or **Problem 67** on [ProjectEuler](https://projecteuler.net/).
 
