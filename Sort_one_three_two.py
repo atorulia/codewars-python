@@ -7,9 +7,6 @@ def number2words(n):
          30: 'thirty', 40: 'forty', 50: 'fifty', 60: 'sixty',
          70: 'seventy', 80: 'eighty', 90: 'ninety'}
     k = 1000
-    m = k * 1000
-    b = m * 1000
-    t = b * 1000
 
     assert (0 <= n)
 
@@ -28,11 +25,8 @@ def number2words(n):
         else:
             return d[n // 100] + ' hundred ' + number2words(n % 100)
 
-    if n < m:
-        if n % k == 0:
-            return number2words(n // k) + ' thousand'
-        else:
-            return number2words(n // k) + ' thousand ' + number2words(n % k)
-
     raise AssertionError('num is too large: %s' % str(n))
 
+
+def sort_by_name(arr):
+    return sorted(arr, key=lambda item: number2words(item))
